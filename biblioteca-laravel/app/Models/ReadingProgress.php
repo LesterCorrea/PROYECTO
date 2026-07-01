@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ReadingProgress extends Model
+{
+    protected $fillable = [
+        'user_id',
+        'readable_id',
+        'readable_type',
+        'current_page',
+        'total_pages',
+        'percentage',
+        'last_read_at',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'percentage'   => 'decimal:2',
+            'last_read_at' => 'datetime',
+        ];
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function readable()
+    {
+        return $this->morphTo();
+    }
+}
